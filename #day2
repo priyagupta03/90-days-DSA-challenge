@@ -21,3 +21,9 @@ MAX value of N                       Time complexity
    10^7                              O(N) Might be accepted
    10^8                              O(N) Border case
    10^9                              O(logN) or Sqrt(N)
+  *Tip1- Build logic first on paper the write code
+  *Tip2- Don't spend more than 30 min in a problem. if stuck on a question for 10-15min check discussion forum(hints). then try solving if not the check answer.
+  *Tip3- If solved question while seeing answer bookmark that question & come back after 1 week.
+  *Tip4- For every problem try to see  in which topic what types of patterns are being used to solve which types of problems.
+  *Try Open source development
+  Read gate algo notes.

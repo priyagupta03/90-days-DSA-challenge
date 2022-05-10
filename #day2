@@ -1,0 +1,23 @@
+Uploaded graph for various time complexity
+Uploaded best and worst time complexity of all algorithms and data structures
+https://www.youtube.com/watch?v=QovOdd80A4s  -  DSA time complexity
+Big Oh notation- Upper bound(Jada se jada itana time) Mostly used
+Theta - avg case complexity(Lag bhag)
+Omega- lower bound(kam se kam)
+Time limit exceeded (TLE error)- 10^8 operation rule is used. Most of the modern machine can perform 10^8 operations/second.
+MAX value of N                       Time complexity
+<=[10....11]                         O(n!), O(n^6)
+<[15.....18]                         O(2^n * n^2)
+<100                                 O(n^4)
+<400                                 O(n^3)
+<2000                                O(n^2*logn)
+<10^4                                O(n^2)
+<10^6                                O(nlogn)
+<10^8                                O(n), O(logn)
+   10^2                              O(N ^ 3)
+   10^4                              O(N ^ 2)
+   10^5                              O(N * logN)
+   10^6                              O(N) Perfect
+   10^7                              O(N) Might be accepted
+   10^8                              O(N) Border case
+   10^9                              O(logN) or Sqrt(N)

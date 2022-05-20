@@ -9,3 +9,78 @@ class Solution:
             if (nums[i]<nums[i+1]+nums[i+2]):
                 return nums[i] + nums[i+1]+ nums[i+2]
         return 0
+
+Question: You are given two integers, x and y, which represent your current location on a Cartesian grid: (x, y). You are also given an array points where each points[i] = [ai, bi] represents that a point exists at (ai, bi). A point is valid if it shares the same x-coordinate or the same y-coordinate as your location.
+    Return the index (0-indexed) of the valid point with the smallest Manhattan distance from your current location. If there are multiple, return the valid point with the smallest index. If there are no valid points, return -1.
+    The Manhattan distance between two points (x1, y1) and (x2, y2) is abs(x1 - x2) + abs(y1 - y2).
+Solution:
+class Solution:
+    def nearestValidPoint(self, x: int, y: int, points: List[List[int]]) -> int:
+        valid_points = []
+        dis = []
+        for p in points:
+            if(p[0]==x or p[1]==y):
+                valid_points.append(p)
+            if(p[0]==x and p[1] ==y):
+                return points.index([p[0], p[1]])
+            
+        if len(valid_points) == 0:
+            return -1
+        
+        for v in valid_points:
+            d = abs(v[0]-x) + abs(v[1]-y)
+            dis.append(d)
+        smallest_dis = min(dis)
+        for n in points:
+            if abs(x-n[0])+abs(y-n[1])== smallest_dis:
+                if n in valid_points:
+                    target_location =[n[0],n[1]]
+                    return points.index(target_location)
+                else:
+                    continue
+
+
+
+
+Solution2:
+class Solution:
+    def nearestValidPoint(self, x: int, y: int, points: List[List[int]]) -> int:
+        # answer array to insrt the index
+        answer = -1
+        # starting point for distance to compare
+        man_distance = float("inf")
+        
+        # allows east insert to answer arrow and increment
+        count = 0 
+        
+        # loop through point
+        for point in points:
+            if point[0] == x or point[1] == y:
+                # compare 
+                current_man_distance = abs(point[0] - x) + abs(point[1] - y)
+                if current_man_distance < man_distance:
+                    # update the man_distance
+                    man_distance = current_man_distance
+                    answer = count
+            
+            # increment count
+            count = count + 1
+        
+        return answer
+        
+        
+        
+        Solution3:
+        class Solution:
+    def nearestValidPoint(self, x1, y1, points):
+        minIdx, minDist = -1, inf
+        for i,point in enumerate(points):
+            x2, y2 = point
+            if x1 == x2 or y1 == y2:
+                dist = abs(x1-x2) + abs(y1-y2)
+                if dist < minDist:
+                    minIdx = i
+                    minDist = min(dist,minDist)
+        return minIdx
+
+

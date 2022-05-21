@@ -1,0 +1,109 @@
+Question: There is a function signFunc(x) that returns:
+
+1 if x is positive.
+-1 if x is negative.
+0 if x is equal to 0.
+You are given an integer array nums. Let product be the product of all values in the array nums.
+Return signFunc(product).
+
+Solution1:
+class Solution:
+    def arraySign(self, nums: List[int]) -> int:
+        p = 1
+        for i in nums:
+            p *= i
+        if p >=1:
+            return 1
+        elif (p == 0):
+            return 0
+        else:
+            return -1
+            
+Solution2:
+negnumcount = 0
+        for num in nums:
+            if num == 0:
+                return 0
+            elif num < 0:
+                negnumcount +=1
+        return 1 if negnumcount % 2 == 0 else -1
+
+
+Solution3:
+class Solution:
+    def arraySign(self, nums: List[int]) -> int:
+        from functools import reduce
+        from operator import mul
+        if reduce(mul, nums) > 0:
+            return 1
+        elif reduce(mul, nums) < 0:
+            return -1
+        else:
+            return 0
+            
+
+Question:A sequence of numbers is called an arithmetic progression if the difference between any two consecutive elements is the same.
+Given an array of numbers arr, return true if the array can be rearranged to form an arithmetic progression. Otherwise, return false.
+
+Solution1:
+class Solution:
+    def canMakeArithmeticProgression(self, arr: List[int]) -> bool:
+        arr.sort()
+        d = arr[1] - arr[0]
+        for i in range(len(arr)-1):        
+            if (arr[i+1] - arr[i] != d):
+                return False
+        return True
+     
+ 
+ Solution2:
+ class Solution:
+    def canMakeArithmeticProgression(self, arr: List[int]) -> bool:
+        arr.sort()
+        gap = (max(arr) - min(arr))//(len(arr)-1)
+        for i in range(0, len(arr)-1):
+            if arr[i+1] == arr[i] + gap:
+                continue
+            else:
+                return False
+        return True
+        
+        
+        
+Question 3:
+Write an algorithm to determine if a number n is happy.
+A happy number is a number defined by the following process:
+Starting with any positive integer, replace the number by the sum of the squares of its digits.
+Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
+Those numbers for which this process ends in 1 are happy.
+Return true if n is a happy number, and false if not.
+
+Solution:
+"""1.If after completing the execution number dosn't ends as 1 return False.
+2.If execution stuck in endless loop check for repetition, we are using set() to check repetition.
+3.If value of n is repeated return False.
+4.After execution return True statment will be executed if n evaluates to 1"""
+class Solution:
+    def isHappy(self, n: int) -> bool:
+      record=set()
+        while not n==1:
+            n=sum([int(i)**2 for i in str(n)])
+            if n in record:
+                return False
+            else:
+                
+                record.add(n)
+        return True
+        
+        
+        
+Question4:You are given two strings s1 and s2 of equal length. A string swap is an operation where you choose two indices in a string (not necessarily different) and swap the characters at these indices.
+Return true if it is possible to make both strings equal by performing at most one string swap on exactly one of the strings. Otherwise, return false.
+Solution:
+class Solution:
+    def areAlmostEqual(self, s1: str, s2: str) -> bool:
+        c=0
+        for i,j in zip(s1,s2):
+            if i!=j:
+                c+=1
+        return s1==s2 or sorted(s1)==sorted(s2) and c==2

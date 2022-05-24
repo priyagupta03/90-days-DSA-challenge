@@ -1,0 +1,59 @@
+Question:Given an array of positive integers arr, calculate the sum of all possible odd-length subarrays.
+A subarray is a contiguous subsequence of the array.
+Return the sum of all odd-length subarrays of arr.
+
+Solution1:
+class Solution:
+    def sumOddLengthSubarrays(self, arr: List[int]) -> int:
+        length = len(arr)
+        ans = 0        
+        for i in range(length) :
+            ans += ((i+1)*(length-i)+1)//2 * arr[i]
+        return ans
+
+Solution2:
+ans=0
+        for i in range(len(arr)+1):
+            for j in range(i):
+                if len(arr[j:i])%2!=0:
+                    ans+=sum(arr[j:i])
+        return ans
+        
+
+
+Question: Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+Note that you must do this in-place without making a copy of the array.
+
+Solution:
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        c=0
+        m=0
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                c=c+1
+                m=m+1
+                
+        while c!=0:
+            nums.remove(0)
+            c=c-1
+            
+        while m!=0:
+            nums.append('0')
+            m=m-1
+            
+Solution:
+temp=[] #storing elements in temporary array
+    for i in range(len(nums)):
+        if nums[i]!=0:
+            temp.append(nums[i])
+    
+    for i in range(len(nums)):
+        if nums[i]==0:
+            temp.append(nums[i])
+    
+    for i in range(len(nums)):
+        nums[i]=temp[i]

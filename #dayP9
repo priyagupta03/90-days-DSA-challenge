@@ -18,3 +18,46 @@ ans =""
             else:
                 ans+=i
         return ans
+        '
+        
+        
+        
+Q2:Decrypt String from Alphabet to Integer Mapping
+You are given a string s formed by digits and '#'. We want to map s to English lowercase characters as follows:
+Characters ('a' to 'i') are represented by ('1' to '9') respectively.
+Characters ('j' to 'z') are represented by ('10#' to '26#') respectively.
+Return the string formed after mapping.
+The test cases are generated so that a unique mapping will always exist.
+
+Sol1:
+letters =[]
+        for i in s:
+            if i == '#':
+                b = letters.pop()
+                a = letters.pop()
+                letters.append(a+b)
+            else:
+                letters.append(i)
+                
+        for j,l in enumerate(letters):
+            letters[j] = chr(ord('a') + int(l) - 1)
+        return "".join(letters)
+Sol2:
+res = ""
+        pointer = len(s)- 1
+        while pointer>=0:
+            if s[pointer]=='#':
+                res = chr(int(s[pointer-2:pointer])+96)+res
+                pointer-=3
+            else:
+                res= chr(int(s[pointer])+96)+res
+                
+                pointer-=1
+        return res
+        
+Sol3:
+return re.sub(r'(?P<short>\d)', 
+                        lambda m: chr(int(m.group('short')) - 1 + ord('a')), 
+                        re.sub(r'(?P<long>\d{2})#', 
+                               lambda m: chr(int(m.group('long')) - 10 + ord('j'))  , 
+                               s)) 

@@ -15,5 +15,68 @@ val = []
         return int(''.join(map(str,val)),2)
         
         
+         
         
- 
+Q2:Maximum Depth of Binary Tree
+Given the root of a binary tree, return its maximum depth. A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+Sol1:
+if not root:
+            return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+        
+Sol2:
+from collections import deque
+
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        worklist = deque([root])
+        num_node_level = 1
+        levels = 0
+        while worklist:
+            node = worklist.popleft()
+            if node.left:
+                worklist.append(node.left)
+            if node.right:
+                worklist.append(node.right)
+            num_node_level -= 1
+            if num_node_level == 0:
+                levels += 1
+                num_node_level = len(worklist)
+                
+        return levels
+        
+        
+
+
+Q3:Sum of Left Leaves
+Given the root of a binary tree, return the sum of all left leaves.
+A leaf is a node with no children. A left leaf is a leaf that is the left child of another node.
+Sol1:
+class Solution:
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        res = 0
+        if root:
+            if root.left and not root.left.left and not root.left.right:
+                res += root.left.val           
+            res += self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right)
+
+        return res
+        
+Sol2:
+class Solution:
+    def sumOfLeftLeaves(self, root: TreeNode) -> int:
+        result = 0
+        stack = [(root, False)]
+        while stack:
+            curr, is_left = stack.pop()
+            if not curr:
+                continue
+            if not curr.left and not curr.right:
+                if is_left:
+                    result += curr.val
+            else:
+                stack.append((curr.left, True))
+                stack.append((curr.right, False))
+        return result

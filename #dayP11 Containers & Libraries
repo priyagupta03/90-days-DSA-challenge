@@ -1,0 +1,114 @@
+Q1:Sort Integers by The Number of 1 Bits
+You are given an integer array arr. Sort the integers in the array in ascending order by the number of 1's in their binary representation and in case of two or more integers have the same number of 1's you have to sort them in ascending order.
+Return the array after sorting it.
+
+Sol1:
+class Solution:
+    def sortByBits(self, arr: List[int]) -> List[int]:
+        temp = []
+        for i in arr:
+            temp.append([i.bit_count(), i])
+        temp.sort()
+        return [x[1] for x in temp]
+        
+Sol2:
+return sorted(arr, key=lambda x: (bin(x).count("1"), x))
+
+Sol3:
+class Solution:
+    def sortByBits(self, arr: List[int]) -> List[int]:
+		# first sort by number of 1s & then sort by number
+        return list(sorted(arr, key=lambda x: (self.hammingWeight(x), x)))
+		
+	# bitwise AND rightmost bit & right shift to check the next bit
+    def hammingWeight(self, n):
+        w = 0
+        while n:
+            w += n & 1
+            n = n >> 1
+        return w
+        
+        
+        
+ 
+ Q2:Implement Queue using stack
+ Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+Implement the MyQueue class:
+
+void push(int x) Pushes element x to the back of the queue.
+int pop() Removes the element from the front of the queue and returns it.
+int peek() Returns the element at the front of the queue.
+boolean empty() Returns true if the queue is empty, false otherwise.
+Notes:
+
+You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
+Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
+
+ Sol1:
+ class MyQueue:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.stack1 = []
+        self.stack2 = []
+    def push(self, x: int) -> None:
+        """
+        Push element x to the back of queue.
+        """
+        self.stack1.append(x)
+        
+
+    def pop(self) -> int:
+        """
+        Removes the element from in front of queue and returns that element.
+        """
+        n = len(self.stack1) - 1
+        for i in range(n):
+            self.stack2.append(self.stack1.pop())
+        res = self.stack1.pop()
+        for i in range(n):
+            self.stack1.append(self.stack2.pop())
+        return res
+
+    def peek(self) -> int:
+        """
+        Get the front element.
+        """
+        n = len(self.stack1) - 1
+        for i in range(n):
+            self.stack2.append(self.stack1.pop())
+        res = self.stack1[0]
+        for i in range(n):
+            self.stack1.append(self.stack2.pop())
+        return res
+
+    def empty(self) -> bool:
+        """
+        Returns whether the queue is empty.
+        """
+        return len(self.stack1) == 0
+        
+Sol2:
+class MyQueue:
+
+    def __init__(self):
+        self.stPush = []
+        self.stPop = []
+
+    def push(self, x: int) -> None:
+        self.stPush.append(x)
+        
+    def pop(self) -> int:
+        self.peek()
+        return self.stPop.pop()
+
+    def peek(self) -> int:
+        if len(self.stPop) == 0:
+            while self.stPush:
+                self.stPop.append(self.stPush.pop())
+        return self.stPop[-1]
+
+    def empty(self) -> bool:
+        return len(self.stPop) + len(self.stPush) == 0
